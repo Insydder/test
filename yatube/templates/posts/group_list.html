@@ -1,0 +1,31 @@
+<!DOCTYPE html> <!-- Используется html 5 версии -->
+{% extends 'base.html' %}
+{% load static %}
+<html lang="ru"> <!-- Язык сайта - русский -->
+  <head>   
+    <title>{% block title %}Записи сообщества {{ group }}{% endblock %}</title>
+  </head>
+  <body>
+    <main>
+      {% block content %}
+      <div class="container py-5">
+        <h1>{{ group }}</h1>
+        <p>{{ desc }}</p>
+        <p>Все записи группы {{ group }}</p>
+        {% for post in page_obj %}
+            <ul>
+              <li>
+                Автор: {{ post.author.get_full_name }}
+              </li>
+              <li>
+                Дата публикации: {{ post.pub_date|date:"d E Y" }}
+              </li>
+            </ul>
+            <p>{{ post.text }}</p>
+        {% endfor %}
+        {% include 'posts/includes/paginator.html' %}
+      </div>
+      {% endblock %}  
+    </main>
+  </body>
+</html>
